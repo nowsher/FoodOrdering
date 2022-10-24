@@ -27,46 +27,21 @@
         android:id="@+id/recyclerView1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutOrderBottom"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayoutOrderBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutOrderBottom"
+    <FrameLayout
+        android:id="@+id/frameLayoutOrderBottom"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#FFC107"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/textViewOrderBottom"
-            android:layout_width="372dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="4"
-            android:gravity="center_vertical"
-            android:text="    Order list"
-            android:textSize="20sp"
-            android:clickable="false"
-            android:focusable="false"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/imageViewOrderBottom"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:clickable="false"
-            android:focusable="false"
-            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
-
-    </LinearLayout>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

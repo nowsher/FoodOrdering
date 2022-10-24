@@ -1,18 +1,22 @@
 package com.example.foodordering
 
-import android.app.ActionBar.LayoutParams
-import android.graphics.Color
+import android.app.Activity
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var resultItems:ActivityResultLauncher<Intent?>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,16 +60,68 @@ class MainActivity : AppCompatActivity() {
         recyclerView1.layoutManager = LinearLayoutManager(this)
         // Create an object for the MyAdapter
         val adapter = MyAdapter(categories)
+//        adapter.setClickListener(this)
         // Set adapter to your RecyclerView
         recyclerView1.adapter = adapter
 
+        var fragManager = supportFragmentManager
+        var fragTrans: FragmentTransaction = fragManager.beginTransaction()
+        fragTrans.add(R.id.frameLayoutOrderBottom, OrderBottomFragment())
+        fragTrans.commit()
 
 
-        linearLayoutOrderBottom.visibility = LinearLayout.GONE
-        linearLayoutOrderBottom.setOnClickListener{
-            Toast.makeText(this,"Hi",Toast.LENGTH_LONG ).show()
-        }
+        //setOrderBottomVisibility()
 
+//        var spEdit = sp.edit()
+//        spEdit.putBoolean("hasItem",false)
+//        spEdit.apply()
+
+//        sp.registerOnSharedPreferenceChangeListener { sharedPreferences, sKey ->
+//            if(sKey.equals("hasItem")){
+//                frameLayoutOrderBottom.visibility = LinearLayout.VISIBLE
+//            }
+//        }
+
+////        var hasItem = sp.getBoolean("hasItem",false)
+//        if (!hasItem) {
+//            linearLayoutOrderBottom.visibility = LinearLayout.GONE
+//        }
+
+//        linearLayoutOrderBottom.setOnClickListener{
+//            Toast.makeText(this,"Hi",Toast.LENGTH_LONG ).show()
+//        }
+
+        resultItems = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+
+//                setOrderBottomVisibility()
+
+//                if (result.resultCode == Activity.RESULT_OK) {
+//                    var x = result.data?.getStringExtra("xyz")
+//                    var v: String = result.data?.data.toString()
+//
+//                    val temp = result.data?.getSerializableExtra("user")
+//                    var userAccount = temp as UserAccount
+//                    if (userAccount != null){
+//                        userList.add(userAccount)
+//                    }
+//                }
+            }
+
+
+    }
+
+//    private fun setOrderBottomVisibility() {
+//        var sp: SharedPreferences = getSharedPreferences("orderedItems", MODE_PRIVATE)
+//        if (sp.contains("hasItem") && sp.getBoolean("hasItem", false)) {
+//            frameLayoutOrderBottom.visibility = LinearLayout.VISIBLE
+//        } else {
+//            frameLayoutOrderBottom.visibility = LinearLayout.INVISIBLE
+//        }
+//    }
+
+    fun  launchListActivity(intent:Intent){
+        Toast.makeText(this,"Hello",Toast.LENGTH_LONG ).show()
+        resultItems.launch(intent)
     }
 
 }
