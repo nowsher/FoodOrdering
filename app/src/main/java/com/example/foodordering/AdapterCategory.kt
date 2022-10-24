@@ -12,9 +12,9 @@ class AdapterCategory(var blist: ArrayList<Category>) : RecyclerView.Adapter<Ada
 
     private var mMainActivity: MainActivity? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterCategory.MyViewHolder {
+    override fun onCreateViewHolder( parent: ViewGroup, viewType: Int)
+    : AdapterCategory.MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.category_list, parent, false)
-//        var v = this
         return MyViewHolder(view)
     }
 
@@ -22,18 +22,19 @@ class AdapterCategory(var blist: ArrayList<Category>) : RecyclerView.Adapter<Ada
         holder.itemView.textNameCategory.text = blist[position].name
         holder.itemView.imageViewCategory.setImageResource(blist[position].imageId)
 
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
+
             val intent = Intent(holder.itemView.context, ItemActivity::class.java)
             intent.putExtra("id", blist[position].id)
             intent.putExtra("name", blist[position].name)
-//            val jsonList = Json.encodeToString(
             intent.putExtra("foods", blist[position].foods as java.io.Serializable)
 
+            //var order = Order(1,Food(1,"chicken",-1,5.5f,""),5)
+            //Utility.getOrderObject().add(order)
+//            var orders = Utility.getOrderObject()
 
             mMainActivity = holder.itemView.context as MainActivity
-            mMainActivity?.launchListActivity(intent)
-//            holder.itemView.context.startActivity(intent);
-
+            mMainActivity?.launchListActivity(intent)  //holder.itemView.context.startActivity(intent);
         }
 
     }
@@ -42,7 +43,6 @@ class AdapterCategory(var blist: ArrayList<Category>) : RecyclerView.Adapter<Ada
         return blist.size
     }
 
-//    // allows clicks events to be caught
 //    fun setClickListener(mainAct: MainActivity) {
 //        this.mMainActivity = mainAct
 //    }

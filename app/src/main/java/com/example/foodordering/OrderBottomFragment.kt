@@ -30,11 +30,9 @@ class OrderBottomFragment : Fragment() {
 
 //        var sharedPref = this.activity?.getSharedPreferences("orderedItems", Context.MODE_PRIVATE)
 //        sharedPref?.registerOnSharedPreferenceChangeListener { sharedPreferences, sKey ->
-//
 //            var frameLayoutOrderBottom: LinearLayout =
 //                view.findViewById(R.id.linearLayoutOrderBottom) as LinearLayout
 //            var frame = frameLayoutOrderBottom.parent as FrameLayout
-//
 //            if (sKey.equals("hasItem")) {
 //                if (sharedPref.getBoolean(sKey, false)) {
 //                    frameLayoutOrderBottom.visibility = LinearLayout.VISIBLE

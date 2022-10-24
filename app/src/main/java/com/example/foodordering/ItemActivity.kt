@@ -44,6 +44,12 @@ class ItemActivity : AppCompatActivity() {
             spEdit.putBoolean("hasItem", !flag)
             spEdit.apply()
 
+
+//            var order = Order(1,Food(1,"chicken",-1,5.5f,""),5)
+//            Utility.getOrderObject().add(order)
+//
+//            var orders = Utility.getOrderObject()
+
             setOrderBottomVisibility()
         }
 

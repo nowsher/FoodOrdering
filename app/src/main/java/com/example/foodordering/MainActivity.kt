@@ -46,8 +46,6 @@ class MainActivity : AppCompatActivity() {
 
 //        frameLayoutMainOrderBottom.visibility = FrameLayout.GONE
 
-//        Utility.setOrderBotomVisibility()
-
         val categories = ArrayList<Category>()
         val foods = ArrayList<Food>()
         categories.add(Category(1,"Chicken", R.drawable.chicken, foods))
@@ -65,44 +63,22 @@ class MainActivity : AppCompatActivity() {
         categories.add(Category(10,"Category9", R.drawable.ic_launcher_foreground))
         categories.add(Category(11,"Category10", R.drawable.ic_launcher_foreground))
 
-
-
         recyclerView1.layoutManager = LinearLayoutManager(this)
         val adapter = AdapterCategory(categories)
 //        adapter.setClickListener(this)
         recyclerView1.adapter = adapter
 
+
+        // Set Order Fragment
         var fragManager = supportFragmentManager
         var fragTrans: FragmentTransaction = fragManager.beginTransaction()
         fragTrans.add(R.id.frameLayoutMainOrderBottom, OrderBottomFragment())
         fragTrans.commit()
 
-
         setOrderBottomVisibility()
 
-//        var spEdit = sp.edit()
-//        spEdit.putBoolean("hasItem",false)
-//        spEdit.apply()
-
-//        sp.registerOnSharedPreferenceChangeListener { sharedPreferences, sKey ->
-//            if(sKey.equals("hasItem")){
-//                frameLayoutOrderBottom.visibility = LinearLayout.VISIBLE
-//            }
-//        }
-
-////        var hasItem = sp.getBoolean("hasItem",false)
-//        if (!hasItem) {
-//            linearLayoutOrderBottom.visibility = LinearLayout.GONE
-//        }
-
-//        linearLayoutOrderBottom.setOnClickListener{
-//            Toast.makeText(this,"Hi",Toast.LENGTH_LONG ).show()
-//        }
-
         resultItems = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-
                 setOrderBottomVisibility()
-
 //                if (result.resultCode == Activity.RESULT_OK) {
 //                    var x = result.data?.getStringExtra("xyz")
 //                    var v: String = result.data?.data.toString()

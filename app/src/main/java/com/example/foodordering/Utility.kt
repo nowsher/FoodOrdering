@@ -4,10 +4,22 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class Utility {
-    companion object factory {
+
+    //need to check singleton
+    companion object Factory {
+        var orderList: ArrayList<Order>? = null
+
+        fun getOrderObject(): ArrayList<Order> {
+            if (orderList == null) {
+                return ArrayList<Order>()
+            }
+            return orderList as ArrayList<Order>
+        }
+
 
 //        fun setOrderBotomVisibility() {
 //            var sharedPref = getSharedPreferences("orderedItems", Context.MODE_PRIVATE)
@@ -35,5 +47,8 @@ class Utility {
 //                frameLayoutMainOrderBottom.visibility = LinearLayout.GONE
 //            }
 //        }
+
+
     }
+
 }
