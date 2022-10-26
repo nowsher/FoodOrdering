@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
         val categories = ArrayList<CategoryData>()
         val foodData = ArrayList<FoodData>()
         categories.add(CategoryData(1,"Chicken", R.drawable.chicken, foodData))
-        foodData.add(FoodData(1,"Chicken fries", R.drawable.chicken,5.5))
-        foodData.add(FoodData(2,"Chicken fries", R.drawable.chicken,6.6))
+        foodData.add(FoodData(1,"Chicken fries", R.drawable.chicken,5.5," World Famous Fries® are made with premium potatoes such as the Russet Burbank and the Shepody."))
+        foodData.add(FoodData(2,"Chicken fries1", R.drawable.chicken,6.6, "It starts with seasoned boneless pork dipped in a tangy BBQ sauce, topped with slivered onions and dill pickles, all served on a toasted homestyle bun." ))
 
         categories.add(CategoryData(2,"Beverages", R.drawable.beverages,foodData))
         categories.add(CategoryData(3,"Breakfast", R.drawable.breakfast,foodData))
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 //        adapter.setClickListener(this)
         recyclerView1.adapter = adapter
 
-        // Set Order Fragment
+        // Set Order bottom Fragment
         var fragManager = supportFragmentManager
         var fragTrans: FragmentTransaction = fragManager.beginTransaction()
         fragTrans.add(R.id.frameLayoutMainOrderBottom, OrderBottomFragment())
@@ -103,8 +103,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun  launchListActivity(intent:Intent){
-        Toast.makeText(this,"Hello",Toast.LENGTH_LONG ).show()
-
+//        Toast.makeText(this,"Hello",Toast.LENGTH_LONG ).show()
         resultItems.launch(intent)
     }
 

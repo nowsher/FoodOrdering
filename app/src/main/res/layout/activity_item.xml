@@ -6,30 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ItemActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:text="TextView"
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayoutItemOrderBottom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/bakery" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <FrameLayout
         android:id="@+id/frameLayoutItemOrderBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="402dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -37,3 +28,75 @@
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="horizontal">-->
+<!--    <LinearLayout-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center" >-->
+<!--        <ImageView-->
+<!--            android:id="@+id/icon"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:srcCompat="@mipmap/ic_launcher" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/title"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="title"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/description"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="description"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:textSize="16sp"/>-->
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+<!--    <ImageView-->
+<!--        android:id="@+id/badge_icon_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity=""-->
+<!--        android:src="@drawable/addtocard" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/cart_badge_text_view"-->
+<!--        android:layout_width="10dp"-->
+<!--        android:layout_height="10dp"-->
+<!--        android:layout_gravity="right|end|top"-->
+<!--        android:layout_marginEnd="-2dp"-->
+<!--        android:layout_marginRight="-10dp"-->
+<!--        android:layout_marginTop="2dp"/>-->
+<!--    <FrameLayout-->
+<!--        android:id="@+id/frameLayoutItemOrderBottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
+
+<!--    </FrameLayout>-->
+
+<!--</LinearLayout>-->
+
