@@ -1,14 +1,11 @@
 package com.example.foodordering
 
-import android.app.Activity
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_item.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class ItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,8 +16,8 @@ class ItemActivity : AppCompatActivity() {
 
         val rcvIntent = intent
         val title = rcvIntent.getStringExtra("name")
-        var foods = rcvIntent.getSerializableExtra("foods") as ArrayList<Food>
-        var food = foods.get(0)
+        var foodData = rcvIntent.getSerializableExtra("foods") as ArrayList<FoodData>
+        var food = foodData.get(0)
 
         // test codes---------
         textView.text = food.name
@@ -44,11 +41,12 @@ class ItemActivity : AppCompatActivity() {
             spEdit.putBoolean("hasItem", !flag)
             spEdit.apply()
 
-
-//            var order = Order(1,Food(1,"chicken",-1,5.5f,""),5)
-//            Utility.getOrderObject().add(order)
-//
-//            var orders = Utility.getOrderObject()
+            var order = OrderData(1,
+                5,
+                FoodData(1,"chicken",-1,5.5,"")
+                )
+            Utility.getOrderObject().add(order)
+            var orders = Utility.getOrderObject()
 
             setOrderBottomVisibility()
         }

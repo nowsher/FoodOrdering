@@ -1,23 +1,13 @@
 package com.example.foodordering
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.parcel.IgnoredOnParcel
-import kotlinx.android.synthetic.main.activity_main.*
-
 class Utility {
 
     //need to check singleton
     companion object Factory {
-        var orderList: ArrayList<Order>? = null
+        private var orderList: ArrayList<OrderData> = ArrayList<OrderData>()
 
-        fun getOrderObject(): ArrayList<Order> {
-            if (orderList == null) {
-                return ArrayList<Order>()
-            }
-            return orderList as ArrayList<Order>
+        fun getOrderObject(): ArrayList<OrderData> {
+            return orderList as ArrayList<OrderData>
         }
 
 

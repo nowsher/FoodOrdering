@@ -4,31 +4,37 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.category_list.view.*
+import com.example.foodordering.CategoryData
+import com.example.foodordering.R
+import kotlinx.android.synthetic.main.order_list.view.*
 
-
-class AdapterCategory(var blist: ArrayList<Category>) : RecyclerView.Adapter<AdapterCategory.MyViewHolder>() {
+class AdapterCategory(var blist: ArrayList<CategoryData>) : RecyclerView.Adapter<AdapterCategory.CategoryViewHolder>() {
 
     private var mMainActivity: MainActivity? = null
 
-    override fun onCreateViewHolder( parent: ViewGroup, viewType: Int)
-    : AdapterCategory.MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_list, parent, false)
-        return MyViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+            : AdapterCategory.CategoryViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.category_list, parent, false)
+        return CategoryViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AdapterCategory.MyViewHolder, position: Int) {
-        holder.itemView.textNameCategory.text = blist[position].name
-        holder.itemView.imageViewCategory.setImageResource(blist[position].imageId)
+    override fun onBindViewHolder(holder: AdapterCategory.CategoryViewHolder, position: Int) {
+        holder.itemView.textNameOrderName.text = blist[position].name
+        holder.itemView.imageViewOrder.setImageResource(blist[position].imageId)
 
         holder.itemView.setOnClickListener {
+            if (blist[position].foodData == null) {
+                Toast.makeText(holder.itemView.context, "No food available", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
 
             val intent = Intent(holder.itemView.context, ItemActivity::class.java)
             intent.putExtra("id", blist[position].id)
             intent.putExtra("name", blist[position].name)
-            intent.putExtra("foods", blist[position].foods as java.io.Serializable)
-
+            intent.putExtra("foods", blist[position].foodData as java.io.Serializable)
             //var order = Order(1,Food(1,"chicken",-1,5.5f,""),5)
             //Utility.getOrderObject().add(order)
 //            var orders = Utility.getOrderObject()
@@ -47,6 +53,6 @@ class AdapterCategory(var blist: ArrayList<Category>) : RecyclerView.Adapter<Ada
 //        this.mMainActivity = mainAct
 //    }
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
 

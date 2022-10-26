@@ -18,14 +18,14 @@
         android:paddingRight="20dp">
 
         <ImageView
-            android:id="@+id/imageViewCategory"
+            android:id="@+id/imageViewOrder"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             app:srcCompat="@drawable/ic_right_angle_background" />
 
         <TextView
-            android:id="@+id/textNameCategory"
+            android:id="@+id/textNameOrderName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -37,7 +37,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageViewGo"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="10dp"

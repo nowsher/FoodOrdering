@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -12,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foodordering.db.CheckoutDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -46,28 +46,27 @@ class MainActivity : AppCompatActivity() {
 
 //        frameLayoutMainOrderBottom.visibility = FrameLayout.GONE
 
-        val categories = ArrayList<Category>()
-        val foods = ArrayList<Food>()
-        categories.add(Category(1,"Chicken", R.drawable.chicken, foods))
-        foods.add(Food(1,"Chicken fries", R.drawable.chicken,5.5f))
-        foods.add(Food(2,"Chicken fries", R.drawable.chicken,6.6f))
+        val categories = ArrayList<CategoryData>()
+        val foodData = ArrayList<FoodData>()
+        categories.add(CategoryData(1,"Chicken", R.drawable.chicken, foodData))
+        foodData.add(FoodData(1,"Chicken fries", R.drawable.chicken,5.5))
+        foodData.add(FoodData(2,"Chicken fries", R.drawable.chicken,6.6))
 
-        categories.add(Category(2,"Beverages", R.drawable.beverages))
-        categories.add(Category(3,"Breakfast", R.drawable.breakfast))
-        categories.add(Category(4,"Bakery", R.drawable.bakery))
-        categories.add(Category(5,"Chicken and Fish Sandwiches", R.drawable.chickenfishsandwiches))
-        categories.add(Category(6,"Desserts", R.drawable.desserts))
-        categories.add(Category(7,"Fries and sides", R.drawable.friessides))
-        categories.add(Category(8,"Category7", R.drawable.ic_launcher_foreground))
-        categories.add(Category(9,"Category8", R.drawable.ic_launcher_foreground))
-        categories.add(Category(10,"Category9", R.drawable.ic_launcher_foreground))
-        categories.add(Category(11,"Category10", R.drawable.ic_launcher_foreground))
+        categories.add(CategoryData(2,"Beverages", R.drawable.beverages,foodData))
+        categories.add(CategoryData(3,"Breakfast", R.drawable.breakfast,foodData))
+        categories.add(CategoryData(4,"Bakery", R.drawable.bakery))
+        categories.add(CategoryData(5,"Chicken and Fish Sandwiches", R.drawable.chickenfishsandwiches))
+        categories.add(CategoryData(6,"Desserts", R.drawable.desserts))
+        categories.add(CategoryData(7,"Fries and sides", R.drawable.friessides))
+        categories.add(CategoryData(8,"Category7", R.drawable.ic_launcher_foreground))
+        categories.add(CategoryData(9,"Category8", R.drawable.ic_launcher_foreground))
+        categories.add(CategoryData(10,"Category9", R.drawable.ic_launcher_foreground))
+        categories.add(CategoryData(11,"Category10", R.drawable.ic_launcher_foreground))
 
         recyclerView1.layoutManager = LinearLayoutManager(this)
         val adapter = AdapterCategory(categories)
 //        adapter.setClickListener(this)
         recyclerView1.adapter = adapter
-
 
         // Set Order Fragment
         var fragManager = supportFragmentManager
@@ -78,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         setOrderBottomVisibility()
 
         resultItems = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                setOrderBottomVisibility()
+            setOrderBottomVisibility()
 //                if (result.resultCode == Activity.RESULT_OK) {
 //                    var x = result.data?.getStringExtra("xyz")
 //                    var v: String = result.data?.data.toString()
@@ -89,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 //                        userList.add(userAccount)
 //                    }
 //                }
-            }
+        }
 
 
     }

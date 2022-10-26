@@ -1,6 +1,7 @@
 package com.example.foodordering
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +11,11 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.foodordering.db.CheckoutDatabase
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.launch
 
-class OrderBottomFragment : Fragment() {
+class OrderBottomFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +26,50 @@ class OrderBottomFragment : Fragment() {
 
         var lilearBottom: LinearLayout =
             view.findViewById(R.id.linearLayoutOrderBottom) as LinearLayout
-        lilearBottom.setOnClickListener {
-            Toast.makeText(context, "Hi", Toast.LENGTH_LONG).show()
+
+        //get list from database
+        launch {
+            context?.let {
+//                var frameLayoutOrderBottom: LinearLayout =
+//                    view.findViewById(R.id.linearLayoutOrderBottom) as LinearLayout
+
+//                if (checkoutGetAll == null || checkoutGetAll.count() <= 0) {
+//                    frameLayoutOrderBottom.visibility = LinearLayout.GONE
+//                } else {
+                    var checkoutGetAll = CheckoutDatabase(it).getCheckoutDao().getAllCheckout()
+                    checkoutGetAll.forEach {
+                        Utility.getOrderObject().add(
+                            OrderData(
+                                it.id,
+                                it.quantity,
+                                FoodData(
+                                    it.foodid,
+                                    it.foodname,
+                                    it.foodimage,
+                                    it.price,
+                                    it.description
+                                )
+                            )
+                        )
+                    }
+
+//                    frameLayoutOrderBottom.visibility = LinearLayout.VISIBLE
+//                }
+
+            }
         }
 
+        lilearBottom.setOnClickListener {
+//            Toast.makeText(context, "Hi", Toast.LENGTH_LONG).show()
+
+//            if (Utility.getOrderObject().size > 0){
+
+//            }
+            val intent = Intent(context, OrderActivity::class.java)
+            startActivity(intent)
+
+
+        }
 
 //        var sharedPref = this.activity?.getSharedPreferences("orderedItems", Context.MODE_PRIVATE)
 //        sharedPref?.registerOnSharedPreferenceChangeListener { sharedPreferences, sKey ->
@@ -46,17 +89,5 @@ class OrderBottomFragment : Fragment() {
 
         return view
     }
-
-
-//    private fun setOrderBottomVisibility(view:View) {
-//        val sp = this.activity?.getSharedPreferences("orderedItems", Context.MODE_PRIVATE)
-//        var frameOrderBottom:LinearLayout = view.findViewById(R.id.linearLayoutOrderBottom) as LinearLayout
-//        if (sp!!.contains("hasItem") && sp.getBoolean("hasItem", false)) {
-//            frameOrderBottom.visibility = LinearLayout.VISIBLE
-//        } else {
-//            frameOrderBottom.visibility = LinearLayout.INVISIBLE
-//        }
-//    }
-
 
 }
