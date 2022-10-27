@@ -11,8 +11,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foodordering.db.Checkout
 import com.example.foodordering.db.CheckoutDatabase
+import kotlinx.android.synthetic.main.activity_item.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,27 +30,7 @@ class MainActivity : AppCompatActivity() {
         ///////////////////////////////
         sharedPref = getSharedPreferences("orderedItems", Context.MODE_PRIVATE)
 
-//        supportActionBar?.setIcon(R.mipmap.ic_launcher);
-
-//        supportActionBar?.setTitle("My new title") // set the top title
-//        val title = actionBar?.getTitle().toString() // get the title
-//        actionBar?.hide() // or even hide the actionbar
-
-//        supportActionBar?.setDisplayShowHomeEnabled(true);
-//        supportActionBar?.setLogo(R.mipmap.ic_launcher);
-//        supportActionBar?.setDisplayUseLogoEnabled(true);
-
-//        val tv = TextView(applicationContext)
-//        val lp: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams(
-//            LayoutParams.MATCH_PARENT,  // Width of TextView
-//            LayoutParams.WRAP_CONTENT
-//        )
-//        tv.layoutParams = lp
-//        tv.setTextColor(Color.RED)
-//        supportActionBar?.setCustomView(tv)
-
-//        frameLayoutMainOrderBottom.visibility = FrameLayout.GONE
-
+/////////////////////////////////
         val categories = ArrayList<CategoryData>()
         val foodData = ArrayList<FoodData>()
         categories.add(CategoryData(1,"Chicken", R.drawable.chicken, foodData))
@@ -62,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         categories.add(CategoryData(9,"Category8", R.drawable.ic_launcher_foreground))
         categories.add(CategoryData(10,"Category9", R.drawable.ic_launcher_foreground))
         categories.add(CategoryData(11,"Category10", R.drawable.ic_launcher_foreground))
+///////////////////////////////////
 
         recyclerView1.layoutManager = LinearLayoutManager(this)
         val adapter = AdapterCategory(categories)
@@ -74,38 +60,51 @@ class MainActivity : AppCompatActivity() {
         fragTrans.add(R.id.frameLayoutMainOrderBottom, OrderBottomFragment())
         fragTrans.commit()
 
-        setOrderBottomVisibility()
+//        setOrderBottomVisibility()
+        updateOrderView(this)
+//        Utility.updateOrderStatus(frameLayoutMainOrderBottom,this)
 
         resultItems = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            setOrderBottomVisibility()
-//                if (result.resultCode == Activity.RESULT_OK) {
-//                    var x = result.data?.getStringExtra("xyz")
-//                    var v: String = result.data?.data.toString()
-//
-//                    val temp = result.data?.getSerializableExtra("user")
-//                    var userAccount = temp as UserAccount
-//                    if (userAccount != null){
-//                        userList.add(userAccount)
-//                    }
-//                }
+//            setOrderBottomVisibility()
+            updateOrderView(this)
         }
 
 
     }
 
-    private fun setOrderBottomVisibility() {
-        var sp: SharedPreferences = getSharedPreferences("orderedItems", MODE_PRIVATE)
-        if (sp.contains("hasItem") && sp.getBoolean("hasItem", false)) {
-            frameLayoutMainOrderBottom.visibility = LinearLayout.VISIBLE
-        } else {
-            frameLayoutMainOrderBottom.visibility = LinearLayout.GONE
+//    private fun setOrderBottomVisibility() {
+//        var sp: SharedPreferences = getSharedPreferences("orderedItems", MODE_PRIVATE)
+//        if (sp.contains("hasItem") && sp.getBoolean("hasItem", false)) {
+//            frameLayoutMainOrderBottom.visibility = LinearLayout.VISIBLE
+//        } else {
+//            frameLayoutMainOrderBottom.visibility = LinearLayout.GONE
+//        }
+//    }
+
+    fun updateOrderView(context: Context) {
+        lateinit var checkoutGetAll: List<Checkout>
+        CoroutineScope(Dispatchers.IO).launch {
+            checkoutGetAll = CheckoutDatabase(context).getCheckoutDao().getAllCheckout()
+        }
+
+        for (i in 1..10) {
+            Thread.sleep(100)
+            if (checkoutGetAll != null) {
+                if (checkoutGetAll != null && checkoutGetAll.size > 0) {
+                    frameLayoutMainOrderBottom.visibility = LinearLayout.VISIBLE
+                } else {
+                    frameLayoutMainOrderBottom.visibility = LinearLayout.GONE
+                }
+                break
+            }
         }
     }
 
     fun  launchListActivity(intent:Intent){
-//        Toast.makeText(this,"Hello",Toast.LENGTH_LONG ).show()
         resultItems.launch(intent)
     }
+
+
 
 
 }

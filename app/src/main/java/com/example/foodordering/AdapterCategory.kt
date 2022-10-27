@@ -35,12 +35,9 @@ class AdapterCategory(var blist: ArrayList<CategoryData>) : RecyclerView.Adapter
             intent.putExtra("id", blist[position].id)
             intent.putExtra("name", blist[position].name)
             intent.putExtra("foods", blist[position].foodData as java.io.Serializable)
-            //var order = Order(1,Food(1,"chicken",-1,5.5f,""),5)
-            //Utility.getOrderObject().add(order)
-//            var orders = Utility.getOrderObject()
 
             mMainActivity = holder.itemView.context as MainActivity
-            mMainActivity?.launchListActivity(intent)  //holder.itemView.context.startActivity(intent);
+            mMainActivity?.launchListActivity(intent)  // to track if closed.
         }
 
     }

@@ -10,6 +10,8 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        supportActionBar?.setTitle("Foods detail")
+
         val rcvIntent = intent
         //val foodImg = rcvIntent.getIntExtra()
         val id = rcvIntent.getIntExtra("id", -1)

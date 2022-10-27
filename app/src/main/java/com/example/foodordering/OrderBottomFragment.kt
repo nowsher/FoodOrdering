@@ -27,17 +27,14 @@ class OrderBottomFragment : BaseFragment() {
         var lilearBottom: LinearLayout =
             view.findViewById(R.id.linearLayoutOrderBottom) as LinearLayout
 
-        //get list from database
+        //clear
+        Utility.getOrderObject().clear()
+        //get list from database and fill local list
         launch {
             context?.let {
-//                var frameLayoutOrderBottom: LinearLayout =
-//                    view.findViewById(R.id.linearLayoutOrderBottom) as LinearLayout
-
-//                if (checkoutGetAll == null || checkoutGetAll.count() <= 0) {
-//                    frameLayoutOrderBottom.visibility = LinearLayout.GONE
-//                } else {
                     var checkoutGetAll = CheckoutDatabase(it).getCheckoutDao().getAllCheckout()
                     checkoutGetAll.forEach {
+
                         Utility.getOrderObject().add(
                             OrderData(
                                 it.id,
@@ -47,45 +44,21 @@ class OrderBottomFragment : BaseFragment() {
                                     it.foodname,
                                     it.foodimage,
                                     it.price,
-                                    it.description
+                                    it.description,
+                                    true
                                 )
                             )
                         )
                     }
 
-//                    frameLayoutOrderBottom.visibility = LinearLayout.VISIBLE
-//                }
 
             }
         }
 
         lilearBottom.setOnClickListener {
-//            Toast.makeText(context, "Hi", Toast.LENGTH_LONG).show()
-
-//            if (Utility.getOrderObject().size > 0){
-
-//            }
             val intent = Intent(context, OrderActivity::class.java)
             startActivity(intent)
-
-
         }
-
-//        var sharedPref = this.activity?.getSharedPreferences("orderedItems", Context.MODE_PRIVATE)
-//        sharedPref?.registerOnSharedPreferenceChangeListener { sharedPreferences, sKey ->
-//            var frameLayoutOrderBottom: LinearLayout =
-//                view.findViewById(R.id.linearLayoutOrderBottom) as LinearLayout
-//            var frame = frameLayoutOrderBottom.parent as FrameLayout
-//            if (sKey.equals("hasItem")) {
-//                if (sharedPref.getBoolean(sKey, false)) {
-//                    frameLayoutOrderBottom.visibility = LinearLayout.VISIBLE
-//                    frame.visibility = LinearLayout.VISIBLE
-//                } else {
-//                    frameLayoutOrderBottom.visibility = LinearLayout.GONE
-//                    frame.visibility = LinearLayout.GONE
-//                }
-//            }
-//        }
 
         return view
     }

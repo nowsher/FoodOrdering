@@ -1,125 +1,113 @@
 package com.example.foodordering
 
-import android.content.SharedPreferences
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentTransaction
+import com.example.foodordering.db.Checkout
+import com.example.foodordering.db.CheckoutDatabase
 import kotlinx.android.synthetic.main.activity_item.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class ItemActivity : AppCompatActivity() {
-//    val fooditem = arrayOf<String>("Chicken","Breakfast","Beverages","Desserts & Shakes",
-//        "Chicken & Fish Sandwiche","Bakery")
-//    val description = arrayOf<String>(
-//        "Price: $1.81",
-//        "Price: $1.81",
-//        "Price: $1.81",
-//        "Price: $1.81",
-//        "Price: $1.81",
-//        "Price: $1.81"
-//    )
-//
-//    val imageId = arrayOf<Int>(
-//        R.drawable.chicken,
-//        R.drawable.breakfast,
-//        R.drawable.beverages,
-//        R.drawable.desserts,
-//        R.drawable.chickenfishsandwiches,
-//        R.drawable.bakery
-//
-//    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item)
         /////////////////////////////////////
-        setOrderBottomVisibility()
+        supportActionBar?.setTitle("Foods available")
 
         val rcvIntent = intent
         val title = rcvIntent.getStringExtra("name")
         var foodList = rcvIntent.getSerializableExtra("foods") as ArrayList<FoodData>
-//        var food = foodList.get(0)
+        //updated "isBagged" status if already selected.
+        Utility.getOrderObject().forEach{
+            var savedId = it.foodData.id
+            var food = foodList.find {
+                savedId == it.id
+            }
+            if (food != null){
+                food.isBagged = true
+            }
+        }
+        val adapterItem = AdapterItem(this, foodList)
+        listView.adapter = adapterItem
 
-        // test codes---------
-//        textView.text = food.name
-////        imageView.setImageResource(image!!.toInt())
-//
-//
-//        var fragManager = supportFragmentManager
-//        var fragTrans: FragmentTransaction = fragManager.beginTransaction()
-//        fragTrans.add(R.id.frameLayoutItemOrderBottom, OrderBottomFragment())
-//        fragTrans.commit()
-//
-//
-//        imageView.setOnClickListener {
-////            var rintent = intent
-////            rintent.putExtra("xyz", "wwwwww")
-////            setResult(Activity.RESULT_OK, rintent)
-//
-//            var sp: SharedPreferences = getSharedPreferences("orderedItems", MODE_PRIVATE)
-//            var flag = sp.getBoolean("hasItem",false)
+
+        //Place bottom order fragment
+        var fragManager = supportFragmentManager
+        var fragTrans: FragmentTransaction = fragManager.beginTransaction()
+        fragTrans.add(R.id.frameLayoutItemOrderBottom, OrderBottomFragment())
+        fragTrans.commit()
+
+        updateOrderView(this)
+    }
+
+
+    fun updateOrderView(context: Context) {
+        var checkoutGetAll: List<Checkout>? = null
+        CoroutineScope(Dispatchers.IO).launch {
+            checkoutGetAll = CheckoutDatabase(context).getCheckoutDao().getAllCheckout()
+        }
+        for (i in 1..10) {
+            Thread.sleep(100)
+            if (checkoutGetAll != null) {
+                if (checkoutGetAll != null && checkoutGetAll!!.size > 0) {
+                    frameLayoutItemOrderBottom.visibility = LinearLayout.VISIBLE
+                } else {
+                    frameLayoutItemOrderBottom.visibility = LinearLayout.GONE
+                }
+                break
+            }
+        }
+
+//    fun setOrderBottomVisibility() {
+//        var sp: SharedPreferences = getSharedPreferences("orderedItems", MODE_PRIVATE)
+//        if (sp.contains("hasItem") && sp.getBoolean("hasItem", false)) {
+//            frameLayoutItemOrderBottom.visibility = LinearLayout.VISIBLE
+//        } else {
+//            frameLayoutItemOrderBottom.visibility = LinearLayout.GONE
+//        }
+//    }
+
+//    fun setSharedPPreferenceHasBag() {
+//        var sp: SharedPreferences = getSharedPreferences("orderedItems", MODE_PRIVATE)
+//        var flag = sp.getBoolean("hasItem", false)
+//        if (value != flag) {
 //            var spEdit = sp.edit()
-//            spEdit.putBoolean("hasItem", !flag)
+//            spEdit.putBoolean("hasItem", !value)
 //            spEdit.apply()
-//
-//            var order = OrderData(1,
-//                5,
-//                FoodData(1,"chicken",-1,5.5,"")
-//                )
-//            Utility.getOrderObject().add(order)
-//            var orders = Utility.getOrderObject()
-//
-//
-//            setOrderBottomVisibility()
 //        }
+//    }
 
-        //---------------------
-        //kallol
-        val myListAdapter = MyListAdapter(this, foodList)
-        listView.adapter = myListAdapter
-
-        setOrderBottomVisibility()
-
-//
-//        listView.setOnItemClickListener(){adapterView, view, position, id ->
-//            val itemAtPos = adapterView.getItemAtPosition(position)
-//            val itemIdAtPos = adapterView.getItemIdAtPosition(position)
-//            Toast.makeText(this, "Click on item at $itemAtPos its item $itemIdAtPos", Toast.LENGTH_LONG).show()
+//    fun setOrderBottomVisibility() {
+//        var sp: SharedPreferences = getSharedPreferences("orderedItems", MODE_PRIVATE)
+//        if (sp.contains("hasItem") && sp.getBoolean("hasItem", false)) {
+//            frameLayoutItemOrderBottom.visibility = LinearLayout.VISIBLE
+//        } else {
+//            frameLayoutItemOrderBottom.visibility = LinearLayout.GONE
 //        }
+//    }
 
 
-        var resultItems = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
-        }
-
+//        fun calculateDocs() = CoroutineScope(Dispatchers.IO).launch {
+//            lateinit var checkoutGetAll:List<Checkout>
+//            val valueVariable = try {
+//                checkoutGetAll = CheckoutDatabase(context).getCheckoutDao().getAllCheckout()
+//            } catch (e: Exception) {
+//
+//            }
+//            if (checkoutGetAll != null && checkoutGetAll.size > 0) {
+//                frameLayoutItemOrderBottom.visibility = LinearLayout.VISIBLE
+//            } else {
+//                frameLayoutItemOrderBottom.visibility = LinearLayout.GONE
+//            }
+//        }
     }
-
-    fun setOrderBottomVisibility() {
-        var sp: SharedPreferences = getSharedPreferences("orderedItems", MODE_PRIVATE)
-        if (sp.contains("hasItem") && sp.getBoolean("hasItem", false)) {
-            frameLayoutItemOrderBottom.visibility = LinearLayout.VISIBLE
-        } else {
-            frameLayoutItemOrderBottom.visibility = LinearLayout.GONE
-        }
-    }
-
-    fun runCoroutineScope() {
-
-    }
-
-    fun setSPHasBag(value: Boolean) {
-        var sp: SharedPreferences = getSharedPreferences("orderedItems", MODE_PRIVATE)
-        var flag = sp.getBoolean("hasItem", false)
-        if (value != flag) {
-            var spEdit = sp.edit()
-            spEdit.putBoolean("hasItem", !value)
-            spEdit.apply()
-        }
-    }
-
 
 }
