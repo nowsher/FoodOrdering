@@ -43,6 +43,13 @@ class DetailActivity : AppCompatActivity() {
                         FoodData(id, name, imageid, price, description)
                     )
                 )
+
+
+
+
+
+
+
             }
 
 
