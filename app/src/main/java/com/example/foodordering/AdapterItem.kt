@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.foodordering.db.Checkout
 import com.example.foodordering.db.CheckoutDatabase
+import kotlinx.android.synthetic.main.item_list.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,16 +23,20 @@ class AdapterItem(private val context: Activity, val foods: ArrayList<FoodData>)
         val imageView = rowView.findViewById(R.id.icon) as ImageView
         val priceText = rowView.findViewById(R.id.price) as TextView
         val linLayout = rowView.findViewById(R.id.linearLayout1) as LinearLayout
-        val imageBag = rowView.findViewById(R.id.imageViewBag) as ImageView
+//        val imageBag = rowView.findViewById(R.id.imageViewBag) as ImageView
+        val btnCart = rowView.findViewById(R.id.buttonCart) as Button
 
         titleText.text = foods[position].name
         imageView.setImageResource(foods[position].imageId)
         priceText.text = "$".toString() + foods[position].price.toString()
         //Set icon based on Ordered.
         if (foods[position].isBagged) {
-            imageBag.setImageResource(R.drawable.ic_baseline_remove_shopping_cart_24)
+//            imageBag.setImageResource(R.drawable.ic_baseline_remove_shopping_cart_24)
+            btnCart.text="Remove"
+            //btnCart.icon = "ic_baseline_shopping_cart_24"
         } else {
-            imageBag.setImageResource(R.drawable.ic_baseline_shopping_cart_24)
+//            imageBag.setImageResource(R.drawable.ic_baseline_shopping_cart_24)
+            btnCart.text="Add"
         }
 
 
@@ -48,13 +53,13 @@ class AdapterItem(private val context: Activity, val foods: ArrayList<FoodData>)
             onClickDetail(foods[position])
         }
 
-        //Add and Delete food item
-        imageBag.setOnClickListener {
+        btnCart.setOnClickListener{
             if (foods[position].isBagged) {
                 //Remove
                 foods[position].isBagged = false
-                imageBag.setImageResource(R.drawable.ic_baseline_remove_shopping_cart_24)
-                imageBag.refreshDrawableState()
+                btnCart.text="Add"
+//                imageBag.setImageResource(R.drawable.ic_baseline_remove_shopping_cart_24)
+//                imageBag.refreshDrawableState()
                 //update memory list
                 var tmpOrderData = Utility.getOrderObject().find {
                     it.foodData.id == foods[position].id
@@ -73,8 +78,9 @@ class AdapterItem(private val context: Activity, val foods: ArrayList<FoodData>)
             } else {
                 //Add
                 foods[position].isBagged = true
-                imageBag.setImageResource(R.drawable.ic_baseline_shopping_cart_24)
-                imageBag.refreshDrawableState()
+                btnCart.text="Remove"
+//                imageBag.setImageResource(R.drawable.ic_baseline_shopping_cart_24)
+//                imageBag.refreshDrawableState()
                 //update memory list
                 var tmpOrderData = Utility.getOrderObject().find {
                     it.foodData.id == foods[position].id
@@ -96,15 +102,12 @@ class AdapterItem(private val context: Activity, val foods: ArrayList<FoodData>)
                                 Utility.getToken()
                             )
                         )
-
-//                    Utility0.getOrderObject().add(OrderData(-1, 1, foods[position]))
-                    //var q = Utility.getOrderObject()
-
                 }
 
             }
             (context as ItemActivity).updateOrderView(context)
         }
+
 
         return rowView
     }

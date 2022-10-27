@@ -29,8 +29,8 @@ class OrderFragment : BaseFragment() {
         orderList = ArrayList<OrderData>()
         //fill only bagged items.
 //        Utility.fillOrderData(context)
-        Utility.getOrderObject().forEach{
-            if (it.foodData.isBagged){
+        Utility.getOrderObject().forEach {
+            if (it.foodData.isBagged) {
                 orderList.add(it)
             }
         }
@@ -45,25 +45,15 @@ class OrderFragment : BaseFragment() {
 
         var btnPayment = view.findViewById(R.id.buttonPayment) as Button
         btnPayment.setOnClickListener {
-
-//            val min = 10
-//            val max = 50
-//            val random: Int = Random.nextInt(max - min + 1) + min
-//            val min2 = 51
-//            val max2 = 99
-//            val random2: Int = Random.nextInt(max - min + 1) + min
-
             val intent = Intent(context, TokenActivity::class.java)
-            intent.putExtra("token",Utility.getToken())
+            intent.putExtra("token", Utility.getToken())
             startActivity(intent)
         }
 
         var btnMore = view.findViewById(R.id.buttonMore) as Button
-        btnMore.setOnClickListener{
-//            var ordActivity = R.layout.activity_order
+        btnMore.setOnClickListener {
             var v = getActivity() as OrderActivity
             v.finish()
-//            ordActivity.con
         }
 
         return view

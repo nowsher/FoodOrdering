@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,12 +17,12 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <LinearLayout
-        android:layout_width="147dp"
+        android:layout_width="230dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -30,8 +31,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:gravity="bottom"
             android:text="title"
@@ -42,21 +42,28 @@
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:text="price"
             android:textSize="16sp" />
     </LinearLayout>
     <!--    </LinearLayout>-->
 
-    <ImageView
-        android:id="@+id/imageViewBag"
-        android:layout_width="52dp"
-        android:layout_height="47dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_baseline_shopping_cart_24" />
+    <Button
+        android:id="@+id/buttonCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#F8C11E"
+        android:gravity="center"
+        android:text="Remove"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:icon="@drawable/ic_baseline_shopping_cart_24"
+        app:iconPadding="2dp" />
 
     <!--    <FrameLayout-->
     <!--        android:id="@+id/frameLayoutItemOrderBottom"-->

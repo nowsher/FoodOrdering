@@ -1,8 +1,14 @@
 package com.example.foodordering
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.foodordering.db.Checkout
+import com.example.foodordering.db.CheckoutDatabase
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.lang.Double
 
 class DetailActivity : AppCompatActivity() {
@@ -28,14 +34,12 @@ class DetailActivity : AppCompatActivity() {
 
 
         btn_add_bag.setOnClickListener() {
-//            val i = Intent(this, OrderActivity::class.java)
-//            i.putExtra("name",title)
-//            i.putExtra("price",price)
 
             var food = Utility.getOrderObject().find {
                 id == it.id
             }
             if (food == null) {
+                //updated memory list
                 Utility.getOrderObject().add(
                     OrderData(
                         -1,
@@ -43,16 +47,22 @@ class DetailActivity : AppCompatActivity() {
                         FoodData(id, name, imageid, price, description)
                     )
                 )
-
-
-
-
-
-
-
             }
-
-
+            //updated database entry
+            CoroutineScope(Dispatchers.IO).launch {
+                var x = CheckoutDatabase(btn_add_bag.context).getCheckoutDao()
+                    .addCheckout(
+                        Checkout(
+                            1,
+                            name,
+                            id,
+                            imageid,
+                            price,
+                            "",
+                            Utility.getToken()
+                        )
+                    )
+            }
             finish()
         }
 

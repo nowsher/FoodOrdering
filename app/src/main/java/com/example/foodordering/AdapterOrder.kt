@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_order.*
 import kotlinx.android.synthetic.main.fragment_order.view.*
 import kotlinx.android.synthetic.main.order_list.view.*
+import java.text.DecimalFormat
 
-class AdapterOrder(var blist: ArrayList<OrderData>) : RecyclerView.Adapter<AdapterOrder.OrderViewHolder>() {
+class AdapterOrder(var blist: ArrayList<OrderData>) :
+    RecyclerView.Adapter<AdapterOrder.OrderViewHolder>() {
 
     private var mOrderFragment: OrderFragment? = null
 
@@ -48,7 +50,9 @@ class AdapterOrder(var blist: ArrayList<OrderData>) : RecyclerView.Adapter<Adapt
     private fun updatePrices(holder: OrderViewHolder, position: Int) {
         holder.itemView.textViewQuantity.text = blist[position].quantity.toString()
         var totalPrice = blist[position].foodData.price * blist[position].quantity
-        holder.itemView.textViewPrice.text = "$".toString() + totalPrice.toString()
+        var df = DecimalFormat("#.##")
+        var tmpPrice = df.format(totalPrice)
+        holder.itemView.textViewPrice.text = "$".toString() + tmpPrice.toString()
         updateSubtotal()
     }
 
@@ -65,7 +69,7 @@ class AdapterOrder(var blist: ArrayList<OrderData>) : RecyclerView.Adapter<Adapt
         mOrderFragment?.textViewSubtotal?.text = "$".toString() + sum.toString()
     }
 
-    fun setParentContext(orderFragment:OrderFragment){
+    fun setParentContext(orderFragment: OrderFragment) {
         mOrderFragment = orderFragment
     }
 

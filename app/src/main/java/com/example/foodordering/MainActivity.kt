@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val categories = ArrayList<CategoryData>()
         val foodData = ArrayList<FoodData>()
         categories.add(CategoryData(1,"Chicken", R.drawable.chicken, foodData))
-        foodData.add(FoodData(1,"Chicken fries", R.drawable.chicken,5.5," World Famous Fries® are made with premium potatoes such as the Russet Burbank and the Shepody."))
+        foodData.add(FoodData(1,"Chicken fries", R.drawable.chickenfishsandwiches,5.5," World Famous Fries® are made with premium potatoes such as the Russet Burbank and the Shepody."))
         foodData.add(FoodData(2,"Chicken fries1", R.drawable.chicken,6.6, "It starts with seasoned boneless pork dipped in a tangy BBQ sauce, topped with slivered onions and dill pickles, all served on a toasted homestyle bun." ))
         foodData.add(FoodData(3,"Chicken fries", R.drawable.chicken,5.5," World Famous Fries® are made with premium potatoes such as the Russet Burbank and the Shepody."))
         foodData.add(FoodData(4,"Chicken fries1", R.drawable.chicken,6.6, "It starts with seasoned boneless pork dipped in a tangy BBQ sauce, topped with slivered onions and dill pickles, all served on a toasted homestyle bun." ))
