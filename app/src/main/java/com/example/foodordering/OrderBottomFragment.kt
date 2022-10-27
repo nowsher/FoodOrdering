@@ -32,24 +32,26 @@ class OrderBottomFragment : BaseFragment() {
         //get list from database and fill local list
         launch {
             context?.let {
-                    var checkoutGetAll = CheckoutDatabase(it).getCheckoutDao().getAllCheckout()
-                    checkoutGetAll.forEach {
-
-                        Utility.getOrderObject().add(
-                            OrderData(
-                                it.id,
-                                it.quantity,
-                                FoodData(
-                                    it.foodid,
-                                    it.foodname,
-                                    it.foodimage,
-                                    it.price,
-                                    it.description,
-                                    true
-                                )
+                var checkoutGetAll = CheckoutDatabase(it).getCheckoutDao().getAllCheckout()
+                if (checkoutGetAll.size > 0) {
+                    Utility.setToken(checkoutGetAll.get(0).token)
+                }
+                checkoutGetAll.forEach {
+                    Utility.getOrderObject().add(
+                        OrderData(
+                            it.id,
+                            it.quantity,
+                            FoodData(
+                                it.foodid,
+                                it.foodname,
+                                it.foodimage,
+                                it.price,
+                                it.description,
+                                true
                             )
                         )
-                    }
+                    )
+                }
 
 
             }

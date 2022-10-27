@@ -20,6 +20,9 @@ interface CheckoutDao {
     @Query("delete from Checkout where foodid = :fid")
     suspend fun deleteCheckoutByFoodId(fid: Int)
 
+    @Query("delete from Checkout")
+    suspend fun deleteAllCheckout()
+
     @Query("DELETE FROM Checkout")
     suspend fun clearTable()
 

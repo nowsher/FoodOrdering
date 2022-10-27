@@ -11,12 +11,35 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.logging.Handler
+import kotlin.random.Random
 
 class Utility {
 
     //need to check singleton
     companion object Factory {
         private var orderList: ArrayList<OrderData> = ArrayList<OrderData>()
+
+        private var tokenData: String = ""
+        fun getToken(): String {
+            if (tokenData == "") {
+                tokenData = createToken()
+            }
+            return tokenData
+        }
+
+        fun setToken(token:String){
+            tokenData = token
+        }
+
+        fun createToken(): String {
+            val min = 10
+            val max = 50
+            val random: Int = Random.nextInt(max - min + 1) + min
+            val min2 = 51
+            val max2 = 99
+            val random2: Int = Random.nextInt(max - min + 1) + min
+            return random.toString() + random2.toString()
+        }
 
         fun getOrderObject(): ArrayList<OrderData> {
             return orderList as ArrayList<OrderData>
@@ -60,6 +83,13 @@ class Utility {
                     )
                 }
 
+            }
+        }
+
+        fun ClearOrderData(context: Context?) {
+            Utility.getOrderObject().clear()
+            CoroutineScope(Dispatchers.IO).launch {
+                var checkoutGetAll = CheckoutDatabase(context!!).getCheckoutDao().deleteAllCheckout()
             }
         }
 

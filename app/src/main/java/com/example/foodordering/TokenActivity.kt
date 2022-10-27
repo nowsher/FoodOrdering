@@ -12,11 +12,14 @@ class TokenActivity : AppCompatActivity() {
         supportActionBar?.setTitle("Order token")
 
         val rcvIntent = intent
-        val token1 = rcvIntent.getStringExtra("token1")
-        val token2 = rcvIntent.getStringExtra("token2")
-        textViewToken.text = token1 + "   ".toString() + token2
+        val token = rcvIntent.getStringExtra("token")
+        textViewToken.text = token.substring(0,2) + "   ".toString() + token.substring(2,4)
 
         buttonBack.setOnClickListener{
+            finish()
+        }
+        buttonConfirm.setOnClickListener{
+            Utility.ClearOrderData(this)
             finish()
         }
     }

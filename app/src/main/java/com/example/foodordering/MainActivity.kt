@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ///////////////////////////////
         sharedPref = getSharedPreferences("orderedItems", Context.MODE_PRIVATE)
+
+        val intent = Intent(this, SplashActivity::class.java)
+        startActivity(intent)
 
 /////////////////////////////////
         val categories = ArrayList<CategoryData>()

@@ -54,6 +54,7 @@ class AdapterItem(private val context: Activity, val foods: ArrayList<FoodData>)
                 //Remove
                 foods[position].isBagged = false
                 imageBag.setImageResource(R.drawable.ic_baseline_remove_shopping_cart_24)
+                imageBag.refreshDrawableState()
                 //update memory list
                 var tmpOrderData = Utility.getOrderObject().find {
                     it.foodData.id == foods[position].id
@@ -73,6 +74,7 @@ class AdapterItem(private val context: Activity, val foods: ArrayList<FoodData>)
                 //Add
                 foods[position].isBagged = true
                 imageBag.setImageResource(R.drawable.ic_baseline_shopping_cart_24)
+                imageBag.refreshDrawableState()
                 //update memory list
                 var tmpOrderData = Utility.getOrderObject().find {
                     it.foodData.id == foods[position].id
@@ -90,7 +92,8 @@ class AdapterItem(private val context: Activity, val foods: ArrayList<FoodData>)
                                 foods[position].id,
                                 foods[position].imageId,
                                 foods[position].price,
-                                ""
+                                "",
+                                Utility.getToken()
                             )
                         )
 
