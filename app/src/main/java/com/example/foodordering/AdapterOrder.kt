@@ -66,7 +66,9 @@ class AdapterOrder(var blist: ArrayList<OrderData>) :
         orderList.forEach {
             sum += it.quantity * it.foodData.price
         }
-        mOrderFragment?.textViewSubtotal?.text = "$".toString() + sum.toString()
+        var df = DecimalFormat("#.##")
+        var tmpSub = df.format(sum)
+        mOrderFragment?.textViewSubtotal?.text = "$".toString() + tmpSub.toString()
     }
 
     fun setParentContext(orderFragment: OrderFragment) {
